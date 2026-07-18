@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#f4f3ef;color:#22212a;font-family:'Signika',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#5a4f8a;text-decoration:none}
+  a:hover{color:#403778}
+  input{font-family:inherit;color:inherit}
+  input:focus{outline:none}
+  image-slot{display:block;width:100%;height:100%}
+  ::selection{background:#e2e0f0}
+  .season{font-family:'Signika',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+</style>
+</helmet>
+<div style="min-height:100vh">
+  <div style="position:sticky;top:0;z-index:40;background:rgba(244,243,239,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)">
+    <div style="max-width:1280px;margin:0 auto;padding:0 34px;height:70px;display:flex;align-items:center;gap:24px">
+      <div style="display:flex;flex-direction:column;line-height:1.08;margin-right:2px">
+        <span class="season" style="font-size:19px;font-weight:600;letter-spacing:.1px;color:#2a2635">Balcony Garden</span>
+        <span style="font-size:10.5px;font-weight:600;color:#9a97b0;letter-spacing:.2em;text-transform:uppercase">Visual Catalog · 2026</span>
+      </div>
+      <nav style="display:flex;gap:2px;flex:1;flex-wrap:wrap">
+        <sc-for list="{{ navMonths }}" as="nm" hint-placeholder-count="6">
+          <button onClick="{{ nm.onJump }}" style="{{ nm.style }}">{{ nm.label }}<span style="{{ nm.countStyle }}">{{ nm.count }}</span></button>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input placeholder="Filter plants…" value="{{ query }}" onInput="{{ onSearch }}" style="width:158px;font-size:13px;padding:9px 14px;border:1px solid rgba(0,0,0,.1);border-radius:22px;background:rgba(255,255,255,.6)" style-focus="width:158px;font-size:13px;padding:9px 14px;border:1px solid #5a4f8a;border-radius:22px;background:#fff">
+        <button onClick="{{ onFocusMode }}" title="View plants one by one" style="{{ focusBtnStyle }}">⤢ Focus</button>
+        <button onClick="{{ onToggleEdit }}" style="{{ editBtnStyle }}">{{ editLabel }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:8px 34px 140px">
+    <sc-for list="{{ months }}" as="month" hint-placeholder-count="6">
+      <section id="{{ month.anchor }}" style="padding-top:64px;scroll-margin-top:88px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div>
+            <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">{{ month.eyebrow }}</div>
+            <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+              <input class="season" defaultValue="{{ month.title }}" onBlur="{{ month.onTitle }}" style="font-size:42px;font-weight:600;letter-spacing:-.5px;border:none;background:transparent;width:auto;min-width:320px;color:#211f2b" style-focus="font-size:42px;font-weight:600;letter-spacing:-.5px;border:none;background:transparent;width:auto;min-width:320px;color:#211f2b;border-bottom:1px dashed #c9c9c9">
+            </sc-if>
+            <sc-if value="{{ month.notEdit }}" hint-placeholder-val="{{ true }}">
+              <h2 class="season" style="font-size:42px;font-weight:600;letter-spacing:-.5px;margin:0;color:#211f2b">{{ month.title }}</h2>
+            </sc-if>
+          </div>
+          <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:rgba(90,79,138,.09);padding:6px 14px;border-radius:20px">{{ month.count }} plants</span>
+        </div>
+        <div style="height:2px;background:linear-gradient(90deg,rgba(90,79,138,.28),rgba(90,79,138,0));margin-top:20px"></div>
+
+        <sc-for list="{{ month.sections }}" as="sec" hint-placeholder-count="3">
+          <div style="padding-top:38px">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+              <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                <input defaultValue="{{ sec.heading }}" onBlur="{{ sec.onHeading }}" style="font-size:19px;font-weight:600;color:#5a4f8a;border:none;background:transparent;min-width:360px" style-focus="font-size:19px;font-weight:600;color:#5a4f8a;border:none;background:transparent;min-width:360px;border-bottom:1px dashed #b9b7d0">
+              </sc-if>
+              <sc-if value="{{ sec.notEdit }}" hint-placeholder-val="{{ true }}">
+                <span style="display:inline-flex;align-items:center;gap:11px">
+                  <span style="width:7px;height:7px;border-radius:2px;background:#5a4f8a;transform:rotate(45deg)"></span>
+                  <h3 style="font-size:19px;font-weight:600;color:#5a4f8a;margin:0;letter-spacing:.2px">{{ sec.heading }}</h3>
+                </span>
+              </sc-if>
+              <sc-if value="{{ sec.hasTag }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:11.5px;font-weight:600;color:#6f6b85;background:#fff;border:1px solid rgba(90,79,138,.18);padding:4px 12px;border-radius:20px;letter-spacing:.2px">{{ sec.tag }}</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{ sec.hasProcess }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px;color:#7a7690;margin:10px 0 2px;letter-spacing:.3px;font-weight:500">{{ sec.process }}</div>
+            </sc-if>
+            <sc-if value="{{ sec.hasNote }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px;color:#94909f;font-style:italic;margin:10px 0 2px;max-width:680px;line-height:1.5">{{ sec.note }}</div>
+            </sc-if>
+
+            <div style="display:grid;grid-template-columns:{{ gridCols }};gap:34px 28px;margin-top:14px">
+              <sc-for list="{{ sec.cards }}" as="card" hint-placeholder-count="5">
+                <div style="{{ card.wrapStyle }}">
+                  <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                    <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                      <input defaultValue="{{ card.name }}" onBlur="{{ card.onName }}" style="font-size:14.5px;font-weight:500;border:none;background:transparent;width:100%;color:#2a2933" style-focus="font-size:14.5px;font-weight:500;border:none;background:transparent;width:100%;color:#2a2933;border-bottom:1px dashed #ccc">
+                      <button onClick="{{ card.onDelete }}" title="Remove" style="flex:none;border:none;background:transparent;color:#c25b5b;cursor:pointer;font-size:16px;line-height:1;padding:1px 2px">×</button>
+                    </sc-if>
+                    <sc-if value="{{ card.notEdit }}" hint-placeholder-val="{{ true }}">
+                      <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">{{ card.name }}</span>
+                    </sc-if>
+                  </div>
+                  <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                    <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ card.slotId }}" src="{{ card.src }}" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                    <button onClick="{{ card.onView }}" title="View full size" style="position:absolute;top:9px;left:9px;z-index:6;width:31px;height:31px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:#4a4757;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.16);backdrop-filter:blur(4px)">⤢</button>
+                    <button onClick="{{ onReplace }}" title="Replace photo" style="position:absolute;top:9px;right:9px;z-index:6;height:31px;padding:0 13px;border-radius:16px;border:none;background:rgba(255,255,255,.92);color:#4a4757;cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.16);backdrop-filter:blur(4px)">Replace</button>
+                  </div>
+                </div>
+              </sc-for>
+
+              <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ sec.onAddCard }}" style="aspect-ratio:1/1;margin-top:52px;border:1.5px dashed #cfccdd;background:rgba(255,255,255,.5);border-radius:16px;color:#9a97b0;cursor:pointer;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px" style-hover="aspect-ratio:1/1;margin-top:52px;border:1.5px dashed #5a4f8a;background:#fff;border-radius:16px;color:#5a4f8a;cursor:pointer;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px"><span style="font-size:24px">+</span>Add plant</button>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ sec.onDelete }}" style="margin-top:16px;font-size:11.5px;color:#bbb;background:none;border:none;cursor:pointer">Remove section</button>
+            </sc-if>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ month.onAddSection }}" style="margin-top:30px;font-size:13px;font-weight:500;color:#5a4f8a;background:#fff;border:1px solid rgba(90,79,138,.2);border-radius:22px;padding:8px 18px;cursor:pointer">+ Add planting period</button>
+        </sc-if>
+      </section>
+    </sc-for>
+
+    <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:70px;padding-top:28px;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:14px;align-items:center">
+        <button onClick="{{ onReset }}" style="font-size:12.5px;color:#c25b5b;background:none;border:1px solid #e8cfcf;border-radius:22px;padding:8px 18px;cursor:pointer">Reset catalog to original</button>
+        <span style="font-size:12px;color:#a8a5b2">Edits and photos save automatically in this browser.</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseViewer }}" style="position:fixed;inset:0;z-index:90;background:rgba(24,22,32,.95);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px">
+      <div class="season" style="position:absolute;top:26px;left:0;right:0;text-align:center;color:#c9c6d6;font-size:13px;letter-spacing:.14em;text-transform:uppercase">{{ viewer.monthLabel }} · {{ viewer.sectionLabel }}</div>
+      <button onClick="{{ onCloseViewer }}" style="position:absolute;top:20px;right:26px;width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:20px;cursor:pointer">×</button>
+      <button onClick="{{ onPrev }}" style="position:absolute;left:26px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer">‹</button>
+      <button onClick="{{ onNext }}" style="position:absolute;right:26px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer">›</button>
+      <div onClick="{{ stop }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onSwipeEnd }}" style="width:min(74vw,660px);height:min(72vh,660px);background:#161520;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ viewer.slotId }}" src="{{ viewer.src }}" shape="rect" fit="contain" placeholder="Drop a photo for this plant" hint-size="100%,100%"></x-import>
+      </div>
+      <div style="margin-top:26px;text-align:center;color:#fff">
+        <div class="season" style="font-size:22px;font-weight:500">{{ viewer.name }}</div>
+        <div style="font-size:12.5px;color:#9d9bab;margin-top:8px;letter-spacing:.4px">{{ viewer.pos }}</div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:840},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5a4f8a&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Style&quot;},&quot;columns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const saved = this._load();
+    this.state = {
+      months: saved || this._seed(),
+      editMode: false,
+      query: "",
+      viewerIndex: null,
+      activeMonth: null
+    };
+  }
+
+  _key(){ return "balcony-garden-catalog-v2"; }
+  _load(){ try{ const r=localStorage.getItem(this._key()); if(!r) return null; const m=JSON.parse(r); m.forEach(mo=>mo.sections.forEach(s=>{ s.cards=s.cards.filter(c=>c.name!=="Romaine – Cimmaron"); })); return m; }catch(e){ return null; } }
+  _save(months){ try{ localStorage.setItem(this._key(), JSON.stringify(months)); }catch(e){} }
+  _gid(){ return "c-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,6); }
+  _slug(name){ return "p-"+String(name||"").toLowerCase().replace(/[’']/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+
+  _seed(){
+    let n=0; const id=()=>"c"+(n++);
+    const S=(heading,names,extra)=>Object.assign({id:id(),heading,tag:"",note:"",process:"",cards:names.map(name=>({id:id(),name}))},extra||{});
+    return [
+      {key:"jul",title:"July 2026",eyebrow:"Midsummer · Seedlings",sections:[
+        S("Seedlings — Solo Cups",["Burpee Zinnias Zesty Mix","Burpee Sunray Yellow Sunflower","Marigold – African Kilimanjaro White","Celosia – King Coral","Lettuce – Little Gem","Arugula – Garden Tangy"]),
+        S("Seedlings — Seed Trays",["Gomphrena – Fireworks","Craspedia – Drumstick Flower"]),
+        S("Last Week of July",["Marigold – Petite orange","Benary’s Giant Salmon Rose Zinnia","Benary’s Giant Wine Rose Zinnia","Oklahoma Pink Zinnia","Shimmer Organic Celosia"])
+      ]},
+      {key:"aug",title:"August 2026",eyebrow:"Late summer · Herbs & edibles",sections:[
+        S("Early August",["Kitchen Mini Cucumber","Everglades Tomato","Genovese basil","Parsley","Thyme"]),
+        S("Late August",["Cilantro","Dill","Oregano","Sage","Lavender"])
+      ]},
+      {key:"sep",title:"September 2026",eyebrow:"Early autumn · Transition",sections:[
+        S("Early September — Start Indoors",["Snapdragon – Twinny Appleblossom","Everglades Tomato","Kitchen Mini Cucumber"]),
+        S("Mid September — Optional Warm-Season Succession",["Zinnia – Oklahoma Pink","Celosia – Shimmer","Gomphrena – Fireworks"],{tag:"Optional — plant only if space allows"}),
+        S("Late September — Cool-Season Edibles",["Lettuce – Little Gem","Romaine – Parris Island Cos","Arugula – Garden Tangy"]),
+        S("Late September — Arriving Plants and Corms",["Blueberry – Sunshine Blue","Blueberry – Sunshine Blue","Ranunculus – Marshmallow"],{note:"Corms arrive in September; store until planting conditions are cooler."})
+      ]},
+      {key:"oct",title:"October 2026",eyebrow:"Autumn · Cool-season",sections:[
+        S("Early October — Start Indoors",["Sweet Alyssum – Snow Cloth"]),
+        S("October — Cool-Season Edible Succession",["Lettuce – Little Gem","Romaine – Parris Island Cos","Arugula – Garden Tangy"],{tag:"Sow only as needed"}),
+        S("Mid to Late October — Harden Off and Move Outside",["Snapdragon – Twinny Appleblossom","Sweet Alyssum – Snow Cloth","Parsley","Cilantro","Dill","Lettuce – Little Gem","Romaine","Arugula"]),
+        S("Late October — Prepare for November Planting",["Larkspur – QIS Carmine","Ranunculus – Romance Salerno","Ranunculus – Marshmallow"],{tag:"Prepare containers and chill or store planting material"})
+      ]},
+      {key:"nov",title:"November 2026",eyebrow:"Late autumn · Planting out",sections:[
+        S("Early November — Direct Sow",["Larkspur – QIS Carmine"]),
+        S("Early November — Pre-Sprout Corms",["Ranunculus – Marshmallow","Ranunculus – Romance Salerno"],{process:"Soak → pre-sprout → plant"}),
+        S("Mid November — Plant Outside",["Ranunculus – Marshmallow","Ranunculus – Romance Salerno","Snapdragon – Twinny Appleblossom","Sweet Alyssum – Snow Cloth","Parsley","Cilantro","Dill"]),
+        S("Late November — Direct Sow Edibles",["Rainbow Carrots","Lettuce – Little Gem","Romaine – Parris Island Cos","Arugula – Garden Tangy"],{tag:"Plant based on available space and current harvests"})
+      ]},
+      {key:"dec",title:"December 2026",eyebrow:"Winter · Cool-season garden",sections:[
+        S("Cool-Season Garden",["Snapdragon – Twinny Appleblossom","Sweet Alyssum – Snow Cloth","Larkspur – QIS Carmine","Ranunculus – Marshmallow","Ranunculus – Romance Salerno","Lettuce – Little Gem","Romaine – Parris Island Cos","Arugula – Garden Tangy","Rainbow Carrots","Parsley","Cilantro","Dill","Blueberry – Sunshine Blue"],{note:"Represents what should currently be growing — not necessarily what to newly plant."}),
+        S("Optional December Succession",["Lettuce – Little Gem","Romaine","Arugula – Garden Tangy","Sweet Alyssum – Snow Cloth"],{tag:"Optional — sow only if needed"})
+      ]}
+    ];
+  }
+
+  _commit(months){ this._save(months); this.setState({months}); }
+  _mapMonths(fn){ return this.state.months.map(fn); }
+
+  componentDidMount(){
+    this._onKey=(e)=>{
+      if(this.state.viewerIndex==null) return;
+      if(e.key==="Escape") this.setState({viewerIndex:null});
+      else if(e.key==="ArrowRight") this._step(1);
+      else if(e.key==="ArrowLeft") this._step(-1);
+    };
+    window.addEventListener("keydown",this._onKey);
+    this._onScroll=()=>{
+      if(this._raf) return;
+      this._raf=requestAnimationFrame(()=>{
+        this._raf=0;
+        let act=this.state.months[0] && this.state.months[0].key;
+        for(const m of this.state.months){ const el=document.getElementById("m-"+m.key); if(el && el.getBoundingClientRect().top<=150) act=m.key; }
+        if(act!==this.state.activeMonth) this.setState({activeMonth:act});
+      });
+    };
+    window.addEventListener("scroll",this._onScroll,{passive:true});
+    this._onScroll();
+  }
+  componentWillUnmount(){ window.removeEventListener("keydown",this._onKey); window.removeEventListener("scroll",this._onScroll); }
+
+  _flat(){
+    const out=[];
+    this.state.months.forEach(m=>m.sections.forEach(s=>s.cards.forEach(c=>{
+      out.push({cid:c.id,slotId:this._slug(c.name),name:c.name,monthLabel:m.title,sectionLabel:s.heading});
+    })));
+    return out;
+  }
+  _step(d){
+    const total=this._flat().length; if(!total) return;
+    this.setState(st=>({viewerIndex:(st.viewerIndex+d+total)%total}));
+  }
+
+  _updCard(mk,sid,cid,val){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.map(s=>s.id!==sid?s:Object.assign({},s,{cards:s.cards.map(c=>c.id!==cid?c:Object.assign({},c,val))}))}))); }
+  _delCard(mk,sid,cid){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.map(s=>s.id!==sid?s:Object.assign({},s,{cards:s.cards.filter(c=>c.id!==cid)}))}))); }
+  _addCard(mk,sid){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.map(s=>s.id!==sid?s:Object.assign({},s,{cards:s.cards.concat([{id:this._gid(),name:"New plant"}])}))}))); }
+  _updSec(mk,sid,val){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.map(s=>s.id!==sid?s:Object.assign({},s,val))}))); }
+  _delSec(mk,sid){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.filter(s=>s.id!==sid)}))); }
+  _addSec(mk){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,{sections:m.sections.concat([{id:this._gid(),heading:"New planting period",tag:"",note:"",process:"",cards:[]}])}))); }
+  _updMonth(mk,val){ this._commit(this._mapMonths(m=>m.key!==mk?m:Object.assign({},m,val))); }
+
+  _photo(name){
+    const map={
+      "Kitchen Mini Cucumber":"assets/509249073795a818.png",
+      "Everglades Tomato":"assets/344a51db416921ff.png",
+      "Parsley":"assets/07348f11d7760305.png",
+      "Cilantro":"assets/3c3c0189b5139027.png",
+      "Dill":"assets/bbc634aae0f9f67d.png",
+      "Genovese basil":"assets/2ac597af388a4f92.png",
+      "Thyme":"assets/35a4996f9ca780eb.png",
+      "Oregano":"assets/c5088a7e8289b09e.png",
+      "Sage":"assets/2f661d97dbc1a942.png",
+      "Lavender":"assets/3e22b3ce00ceddfd.png",
+      "Gomphrena – Fireworks":"assets/38bd636f17f80255.png",
+      "Arugula – Garden Tangy":"assets/6c983b2e8ac80379.png",
+      "Arugula":"assets/6c983b2e8ac80379.png",
+      "Lettuce – Little Gem":"assets/6ae31be5762607f8.png",
+      "Zinnia – Oklahoma Pink":"assets/90639f4e81625b94.png",
+      "Oklahoma Pink Zinnia":"assets/90639f4e81625b94.png",
+      "Celosia – Shimmer":"assets/1b4736e647720dcf.png",
+      "Shimmer Organic Celosia":"assets/1b4736e647720dcf.png",
+      "Burpee Zinnias Zesty Mix":"assets/d80f978cfa358ae3.png",
+      "Burpee Sunray Yellow Sunflower":"assets/78f24d4ff032a9ba.png",
+      "Marigold – African Kilimanjaro White":"assets/088beb96018c1fbb.png",
+      "Celosia – King Coral":"assets/f355bfad41f106d9.png",
+      "Craspedia – Drumstick Flower":"assets/c68f3673662e74b0.png",
+      "Marigold – Petite orange":"assets/431e40ca62990eb5.png",
+      "Benary’s Giant Salmon Rose Zinnia":"assets/5cbb21ddb52c93f1.png",
+      "Benary’s Giant Wine Rose Zinnia":"assets/b50fe9ac5cde6ea9.png"
+    };
+    return map[name]||"";
+  }
+
+  renderVals(){
+    const accent=this.props.accent ?? "#5a4f8a";
+    const cols=this.props.columns ?? 5;
+    const edit=this.state.editMode;
+    const q=this.state.query.trim().toLowerCase();
+    const flat=this._flat();
+    const active=this.state.activeMonth;
+
+    const navMonths=this.state.months.map(m=>{
+      const count=m.sections.reduce((a,s)=>a+s.cards.length,0);
+      const on=m.key===active;
+      return {
+        label:m.title.replace(" 2026",""),
+        count,
+        onJump:()=>{ const el=document.getElementById("m-"+m.key); if(el){ const y=el.getBoundingClientRect().top+window.pageYOffset-84; window.scrollTo({top:y,behavior:"smooth"}); } },
+        style:"font-family:inherit;font-size:13.5px;font-weight:"+(on?"600":"500")+";color:"+(on?accent:"#514e5e")+";background:"+(on?"rgba(90,79,138,.11)":"transparent")+";border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s",
+        countStyle:"font-size:10.5px;font-weight:700;color:#fff;background:"+accent+";border-radius:20px;padding:1px 7px;min-width:19px;text-align:center;opacity:"+(on?"1":".78")
+      };
+    });
+
+    const months=this.state.months.map(m=>{
+      const count=m.sections.reduce((a,s)=>a+s.cards.length,0);
+      return {
+        anchor:"m-"+m.key,
+        title:m.title,
+        eyebrow:m.eyebrow||"",
+        count,
+        notEdit:!edit,
+        onTitle:(e)=>this._updMonth(m.key,{title:e.target.value}),
+        onAddSection:()=>this._addSec(m.key),
+        sections:m.sections.map(s=>({
+          heading:s.heading,
+          tag:s.tag||"",
+          hasTag:!!s.tag,
+          note:s.note||"",
+          hasNote:!!s.note,
+          process:s.process||"",
+          hasProcess:!!s.process,
+          notEdit:!edit,
+          onHeading:(e)=>this._updSec(m.key,s.id,{heading:e.target.value}),
+          onAddCard:()=>this._addCard(m.key,s.id),
+          onDelete:()=>this._delSec(m.key,s.id),
+          cards:s.cards.map(c=>{
+            const dim = q && c.name.toLowerCase().indexOf(q)===-1;
+            const flatIdx = flat.findIndex(f=>f.cid===c.id);
+            return {
+              slotId:this._slug(c.name),
+              name:c.name,
+              src:this._photo(c.name),
+              notEdit:!edit,
+              wrapStyle:"display:flex;flex-direction:column;transition:opacity .18s;opacity:"+(dim?"0.2":"1"),
+              onName:(e)=>this._updCard(m.key,s.id,c.id,{name:e.target.value}),
+              onDelete:()=>this._delCard(m.key,s.id,c.id),
+              onView:()=>this.setState({viewerIndex: flatIdx<0?0:flatIdx})
+            };
+          })
+        }))
+      };
+    });
+
+    const vi=this.state.viewerIndex;
+    const vopen = vi!=null && flat.length>0;
+    const vcur = vopen ? flat[Math.min(vi,flat.length-1)] : null;
+
+    return {
+      months, navMonths,
+      gridCols:"repeat("+cols+",minmax(0,1fr))",
+      editMode:edit,
+      editLabel: edit?"✓ Done":"✎ Edit",
+      editBtnStyle:"font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-radius:22px;padding:8px 16px;border:1px solid "+(edit?accent:"rgba(0,0,0,.1)")+";background:"+(edit?accent:"rgba(255,255,255,.6)")+";color:"+(edit?"#fff":"#3a3846"),
+      focusBtnStyle:"font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-radius:22px;padding:8px 16px;border:1px solid rgba(0,0,0,.1);background:rgba(255,255,255,.6);color:#3a3846",
+      query:this.state.query,
+      onSearch:(e)=>this.setState({query:e.target.value}),
+      onToggleEdit:()=>this.setState({editMode:!this.state.editMode}),
+      onFocusMode:()=>this.setState({viewerIndex:0}),
+      onReset:()=>{ if(confirm("Reset all text back to the original catalog? Your dropped photos are kept.")){ const s=this._seed(); this._commit(s); } },
+      viewerOpen:vopen,
+      viewer: vcur ? {slotId:vcur.slotId,src:this._photo(vcur.name),name:vcur.name,monthLabel:vcur.monthLabel,sectionLabel:vcur.sectionLabel,pos:(Math.min(vi,flat.length-1)+1)+" / "+flat.length} : {slotId:"",src:"",name:"",monthLabel:"",sectionLabel:"",pos:""},
+      onPrev:(e)=>{ if(e)e.stopPropagation(); this._step(-1); },
+      onNext:(e)=>{ if(e)e.stopPropagation(); this._step(1); },
+      onCloseViewer:()=>this.setState({viewerIndex:null}),
+      onReplace:(e)=>{ e.stopPropagation(); const w=e.currentTarget.parentElement; const sl=w&&w.querySelector("image-slot"); if(sl&&sl.openFilePicker) sl.openFilePicker(); else if(sl&&sl.shadowRoot){ const inp=sl.shadowRoot.querySelector("input[type=file]"); if(inp) inp.click(); } },
+      stop:(e)=>{ e.stopPropagation(); },
+      onTouchStart:(e)=>{ this._tx = (e.touches && e.touches[0]) ? e.touches[0].clientX : null; },
+      onSwipeEnd:(e)=>{ e.stopPropagation(); if(this._tx==null) return; const t=e.changedTouches && e.changedTouches[0]; if(!t) return; const dx=t.clientX-this._tx; this._tx=null; if(Math.abs(dx)>40) this._step(dx<0?1:-1); }
+    };
+  }
+}
+</script>
+</body>
+</html>
