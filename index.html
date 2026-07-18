@@ -21,39 +21,79 @@
   image-slot{display:block;width:100%;height:100%}
   ::selection{background:#e2e0f0}
   .season{font-family:'Signika',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  .wrap{max-width:1280px;margin:0 auto;padding:8px 34px 140px}
+  .month-top{padding-top:64px;scroll-margin-top:118px}
+  .mtitle{font-size:42px;font-weight:600;letter-spacing:-.5px;color:#211f2b;margin:0}
+  .sect{padding-top:38px}
+  .grid{display:grid;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));gap:34px 28px;margin-top:14px}
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(244,243,239,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}
+  .appbar{max-width:1280px;margin:0 auto;padding:10px 34px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .brand{display:flex;flex-direction:column;line-height:1.08;flex:none;min-width:0}
+  .brand-t{font-size:19px;font-weight:600;color:#2a2635}
+  .brand-s{font-size:10.5px;font-weight:600;color:#9a97b0;letter-spacing:.2em;text-transform:uppercase}
+  .actions{display:flex;align-items:center;gap:8px;min-width:0}
+  .filter{width:150px;font-size:13px;padding:9px 14px;border:1px solid rgba(0,0,0,.1);border-radius:22px;background:rgba(255,255,255,.6);font-family:inherit;color:inherit;min-width:0}
+  .filter:focus{border-color:#5a4f8a;background:#fff;outline:none}
+  .act{font-family:inherit;white-space:nowrap}
+  .navrow{max-width:1280px;margin:0 auto;padding:0 34px 12px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .navrow::-webkit-scrollbar{display:none}
+  .chip{flex:none;white-space:nowrap}
+  @media(max-width:900px){
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 20px}
+    .wrap{padding:6px 20px 120px}
+    .mtitle{font-size:32px}
+    .appbar{padding:10px 20px}
+    .navrow{padding:0 20px 12px}
+    .month-top{padding-top:44px}
+  }
+  @media(max-width:600px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px}
+    .wrap{padding:4px 14px 110px}
+    .mtitle{font-size:26px}
+    .brand-s{display:none}
+    .brand-t{font-size:17px}
+    .filter{width:104px}
+    .focus-t{display:none}
+    .act{padding:8px 12px!important}
+    .appbar{gap:10px;padding:9px 14px}
+    .actions{gap:6px}
+    .navrow{padding:0 14px 12px}
+    .month-top{padding-top:34px}
+    .sect{padding-top:26px}
+  }
 </style>
 </helmet>
 <div style="min-height:100vh">
-  <div style="position:sticky;top:0;z-index:40;background:rgba(244,243,239,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)">
-    <div style="max-width:1280px;margin:0 auto;padding:0 34px;height:70px;display:flex;align-items:center;gap:24px">
-      <div style="display:flex;flex-direction:column;line-height:1.08;margin-right:2px">
-        <span class="season" style="font-size:19px;font-weight:600;letter-spacing:.1px;color:#2a2635">Balcony Garden</span>
-        <span style="font-size:10.5px;font-weight:600;color:#9a97b0;letter-spacing:.2em;text-transform:uppercase">Visual Catalog · 2026</span>
+  <div class="topbar">
+    <div class="appbar">
+      <div class="brand">
+        <span class="season brand-t">Balcony Garden</span>
+        <span class="brand-s">Visual Catalog · 2026</span>
       </div>
-      <nav style="display:flex;gap:2px;flex:1;flex-wrap:wrap">
-        <sc-for list="{{ navMonths }}" as="nm" hint-placeholder-count="6">
-          <button onClick="{{ nm.onJump }}" style="{{ nm.style }}">{{ nm.label }}<span style="{{ nm.countStyle }}">{{ nm.count }}</span></button>
-        </sc-for>
-      </nav>
-      <div style="display:flex;align-items:center;gap:8px">
-        <input placeholder="Filter plants…" value="{{ query }}" onInput="{{ onSearch }}" style="width:158px;font-size:13px;padding:9px 14px;border:1px solid rgba(0,0,0,.1);border-radius:22px;background:rgba(255,255,255,.6)" style-focus="width:158px;font-size:13px;padding:9px 14px;border:1px solid #5a4f8a;border-radius:22px;background:#fff">
-        <button onClick="{{ onFocusMode }}" title="View plants one by one" style="{{ focusBtnStyle }}">⤢ Focus</button>
-        <button onClick="{{ onToggleEdit }}" style="{{ editBtnStyle }}">{{ editLabel }}</button>
+      <div class="actions">
+        <input class="filter" placeholder="Filter plants…" value="{{ query }}" onInput="{{ onSearch }}">
+        <button class="act" onClick="{{ onFocusMode }}" title="View plants one by one" style="{{ focusBtnStyle }}">⤢<span class="focus-t"> Focus</span></button>
+        <button class="act" onClick="{{ onToggleEdit }}" style="{{ editBtnStyle }}">{{ editLabel }}</button>
       </div>
     </div>
+    <nav class="navrow">
+      <sc-for list="{{ navMonths }}" as="nm" hint-placeholder-count="6">
+        <button class="chip" onClick="{{ nm.onJump }}" style="{{ nm.style }}">{{ nm.label }}<span style="{{ nm.countStyle }}">{{ nm.count }}</span></button>
+      </sc-for>
+    </nav>
   </div>
 
-  <div style="max-width:1280px;margin:0 auto;padding:8px 34px 140px">
+  <div class="wrap">
     <sc-for list="{{ months }}" as="month" hint-placeholder-count="6">
-      <section id="{{ month.anchor }}" style="padding-top:64px;scroll-margin-top:88px">
+      <section id="{{ month.anchor }}" class="month-top">
         <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
           <div>
             <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">{{ month.eyebrow }}</div>
             <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
-              <input class="season" defaultValue="{{ month.title }}" onBlur="{{ month.onTitle }}" style="font-size:42px;font-weight:600;letter-spacing:-.5px;border:none;background:transparent;width:auto;min-width:320px;color:#211f2b" style-focus="font-size:42px;font-weight:600;letter-spacing:-.5px;border:none;background:transparent;width:auto;min-width:320px;color:#211f2b;border-bottom:1px dashed #c9c9c9">
+              <input class="season mtitle" defaultValue="{{ month.title }}" onBlur="{{ month.onTitle }}" style="border:none;background:transparent;width:100%;max-width:520px;min-width:0" style-focus="border:none;background:transparent;width:100%;max-width:520px;min-width:0;border-bottom:1px dashed #c9c9c9">
             </sc-if>
             <sc-if value="{{ month.notEdit }}" hint-placeholder-val="{{ true }}">
-              <h2 class="season" style="font-size:42px;font-weight:600;letter-spacing:-.5px;margin:0;color:#211f2b">{{ month.title }}</h2>
+              <h2 class="season mtitle">{{ month.title }}</h2>
             </sc-if>
           </div>
           <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:rgba(90,79,138,.09);padding:6px 14px;border-radius:20px">{{ month.count }} plants</span>
@@ -61,7 +101,7 @@
         <div style="height:2px;background:linear-gradient(90deg,rgba(90,79,138,.28),rgba(90,79,138,0));margin-top:20px"></div>
 
         <sc-for list="{{ month.sections }}" as="sec" hint-placeholder-count="3">
-          <div style="padding-top:38px">
+          <div class="sect">
             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
               <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
                 <input defaultValue="{{ sec.heading }}" onBlur="{{ sec.onHeading }}" style="font-size:19px;font-weight:600;color:#5a4f8a;border:none;background:transparent;min-width:360px" style-focus="font-size:19px;font-weight:600;color:#5a4f8a;border:none;background:transparent;min-width:360px;border-bottom:1px dashed #b9b7d0">
@@ -83,7 +123,7 @@
               <div style="font-size:13px;color:#94909f;font-style:italic;margin:10px 0 2px;max-width:680px;line-height:1.5">{{ sec.note }}</div>
             </sc-if>
 
-            <div style="display:grid;grid-template-columns:{{ gridCols }};gap:34px 28px;margin-top:14px">
+            <div class="grid" style="--cols:{{ colsNum }}">
               <sc-for list="{{ sec.cards }}" as="card" hint-placeholder-count="5">
                 <div style="{{ card.wrapStyle }}">
                   <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
@@ -129,17 +169,19 @@
   </div>
 
   <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ onCloseViewer }}" style="position:fixed;inset:0;z-index:90;background:rgba(24,22,32,.95);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px">
-      <div class="season" style="position:absolute;top:26px;left:0;right:0;text-align:center;color:#c9c6d6;font-size:13px;letter-spacing:.14em;text-transform:uppercase">{{ viewer.monthLabel }} · {{ viewer.sectionLabel }}</div>
-      <button onClick="{{ onCloseViewer }}" style="position:absolute;top:20px;right:26px;width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:20px;cursor:pointer">×</button>
-      <button onClick="{{ onPrev }}" style="position:absolute;left:26px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer">‹</button>
-      <button onClick="{{ onNext }}" style="position:absolute;right:26px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer">›</button>
-      <div onClick="{{ stop }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onSwipeEnd }}" style="width:min(74vw,660px);height:min(72vh,660px);background:#161520;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)">
-        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ viewer.slotId }}" src="{{ viewer.src }}" shape="rect" fit="contain" placeholder="Drop a photo for this plant" hint-size="100%,100%"></x-import>
+    <div onClick="{{ onCloseViewer }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onSwipeEnd }}" style="position:fixed;inset:0;z-index:90;background:#0c0b11;overflow:hidden">
+      <div onClick="{{ stop }}" style="position:absolute;inset:0">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ viewer.slotId }}" src="{{ viewer.src }}" shape="rect" fit="cover" placeholder="Drop a photo for this plant" hint-size="100%,100%"></x-import>
       </div>
-      <div style="margin-top:26px;text-align:center;color:#fff">
-        <div class="season" style="font-size:22px;font-weight:500">{{ viewer.name }}</div>
-        <div style="font-size:12.5px;color:#9d9bab;margin-top:8px;letter-spacing:.4px">{{ viewer.pos }}</div>
+      <div style="position:absolute;top:0;left:0;right:0;height:130px;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,0));pointer-events:none"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:210px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.78));pointer-events:none"></div>
+      <div class="season" style="position:absolute;top:22px;left:22px;right:74px;color:#eceaf2;font-size:12px;letter-spacing:.14em;text-transform:uppercase;pointer-events:none">{{ viewer.monthLabel }} · {{ viewer.sectionLabel }}</div>
+      <button onClick="{{ onCloseViewer }}" style="position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">×</button>
+      <button onClick="{{ onPrev }}" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(0,0,0,.34);color:#fff;font-size:26px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">‹</button>
+      <button onClick="{{ onNext }}" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(0,0,0,.34);color:#fff;font-size:26px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">›</button>
+      <div style="position:absolute;bottom:28px;left:0;right:0;text-align:center;color:#fff;pointer-events:none;padding:0 24px">
+        <div class="season" style="font-size:22px;font-weight:600;text-wrap:pretty">{{ viewer.name }}</div>
+        <div style="font-size:12.5px;color:#cbc8d6;margin-top:6px;letter-spacing:.4px">{{ viewer.pos }}</div>
       </div>
     </div>
   </sc-if>
@@ -347,6 +389,7 @@ class Component extends DCLogic {
     return {
       months, navMonths,
       gridCols:"repeat("+cols+",minmax(0,1fr))",
+      colsNum:cols,
       editMode:edit,
       editLabel: edit?"✓ Done":"✎ Edit",
       editBtnStyle:"font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-radius:22px;padding:8px 16px;border:1px solid "+(edit?accent:"rgba(0,0,0,.1)")+";background:"+(edit?accent:"rgba(255,255,255,.6)")+";color:"+(edit?"#fff":"#3a3846"),
