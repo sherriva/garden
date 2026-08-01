@@ -351,8 +351,7 @@
     // right-aligns against the computed left edge); inset:auto clears the
     // base rule's top/right so the inline left/top position it alone.
     '.ctl:popover-open{position:fixed;inset:auto;transform:translateX(-100%)}' +
-    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
-    '  {opacity:1;pointer-events:auto}' +
+    '.ctl{display:none !important}' +
     '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
     '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
     '  backdrop-filter:blur(6px)}' +

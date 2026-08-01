@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  [data-root]{--accent:#5a4f8a}
+  body{margin:0;background:#eef5e6;color:#22212a;font-family:'Signika',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#5a4f8a;text-decoration:none}
+  a:hover{color:#403778}
+  input{font-family:inherit;color:inherit}
+  input:focus{outline:none}
+  image-slot{display:block;width:100%;height:100%}
+  ::selection{background:#e2e0f0}
+  .season{font-family:'Signika',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  .wrap{max-width:1280px;margin:0 auto;padding:8px 34px 140px}
+  .month-top{padding-top:64px;scroll-margin-top:118px}
+  .mtitle{font-size:42px;font-weight:600;letter-spacing:-.5px;color:#211f2b;margin:0}
+  .sect{padding-top:38px}
+  .grid{display:grid;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));gap:34px 28px;margin-top:14px}
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(244,243,239,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}
+  .appbar{max-width:1280px;margin:0 auto;padding:10px 34px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .brand{display:flex;flex-direction:column;line-height:1.08;flex:none;min-width:0}
+  .brand-t{font-size:19px;font-weight:600;color:#2a2635}
+  .brand-s{font-size:10.5px;font-weight:600;color:#9a97b0;letter-spacing:.2em;text-transform:uppercase}
+  .actions{display:flex;align-items:center;gap:8px;min-width:0}
+  .filter{width:150px;font-size:13px;padding:9px 14px;border:1px solid rgba(0,0,0,.1);border-radius:22px;background:rgba(255,255,255,.6);font-family:inherit;color:inherit;min-width:0}
+  .filter:focus{border-color:#5a4f8a;background:#fff;outline:none}
+  .act{font-family:inherit;white-space:nowrap}
+  .navrow{max-width:1280px;margin:0 auto;padding:0 34px 12px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .navrow::-webkit-scrollbar{display:none}
+  .chip{flex:none;white-space:nowrap}
+  @media(max-width:900px){
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 20px}
+    .wrap{padding:6px 20px 120px}
+    .mtitle{font-size:32px}
+    .appbar{padding:10px 20px}
+    .navrow{padding:0 20px 12px}
+    .month-top{padding-top:44px}
+  }
+  @media(max-width:600px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px}
+    .wrap{padding:4px 14px 110px}
+    .mtitle{font-size:26px}
+    .brand-s{display:none}
+    .brand-t{font-size:17px}
+    .filter{width:104px}
+    .focus-t{display:none}
+    .act{padding:8px 12px!important}
+    .appbar{gap:10px;padding:9px 14px}
+    .actions{gap:6px}
+    .navrow{padding:0 14px 12px}
+    .month-top{padding-top:34px}
+    .sect{padding-top:26px}
+  }
+</style>
+</helmet>
+
+<div data-root="1" style="min-height:100vh;background:#eef5e6">
+  <div class="topbar">
+    <div class="appbar">
+      <div class="brand">
+        <span class="season brand-t">Balcony Garden</span>
+        <span class="brand-s">Visual Catalog · 2026</span>
+      </div>
+      <div class="actions">
+        <input class="filter" placeholder="Filter plants…" onInput="{{ onSearch }}">
+        <button class="act" onClick="{{ onFocusMode }}" title="View plants one by one" style="font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-radius:22px;padding:8px 16px;border:1px solid rgba(0,0,0,.1);background:rgba(255,255,255,.6);color:#3a3846">⤢<span class="focus-t"> Focus</span></button>
+      </div>
+    </div>
+    <nav class="navrow">
+        <button class="chip" data-jump="m-jul" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">July</button>
+        <button class="chip" data-jump="m-aug" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">August</button>
+        <button class="chip" data-jump="m-sep" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">September</button>
+        <button class="chip" data-jump="m-oct" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">October</button>
+        <button class="chip" data-jump="m-nov" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">November</button>
+        <button class="chip" data-jump="m-dec" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">December</button>
+        <button class="chip" data-jump="m-misc" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">Miscellaneous</button>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <section id="m-jul" data-screen-label="July 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Midsummer · Seedlings</div>
+          <h2 class="season mtitle">July 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">11 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Seedlings — Solo Cups</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Burpee Zinnias Zesty Mix" data-src="assets/ph-burpee-zinnias-zesty-mix.webp" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Burpee Zinnias Zesty Mix</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-burpee-zinnias-zesty-mix" src="assets/ph-burpee-zinnias-zesty-mix.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Burpee Sunray Yellow Sunflower" data-src="assets/78f24d4ff032a9ba.png" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Burpee Sunray Yellow Sunflower</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-burpee-sunray-yellow-sunflower" src="assets/78f24d4ff032a9ba.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Marigold – African Kilimanjaro White" data-src="assets/088beb96018c1fbb.png" data-source="Botanical Interests" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Marigold – African Kilimanjaro White</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Botanical Interests</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-marigold-african-kilimanjaro-white" src="assets/088beb96018c1fbb.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Celosia – King Coral" data-src="assets/f355bfad41f106d9.png" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Celosia – King Coral</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-celosia-king-coral" src="assets/f355bfad41f106d9.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Solo Cups" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Seedlings — Seed Trays</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Gomphrena – Fireworks" data-src="assets/38bd636f17f80255.png" data-source="Burpee" data-month="July 2026" data-section="Seedlings — Seed Trays" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Gomphrena – Fireworks</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-gomphrena-fireworks" src="assets/38bd636f17f80255.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Craspedia – Drumstick Flower" data-src="assets/ph-craspedia-drumstick-flower.png" data-source="Botanical Interests" data-month="July 2026" data-section="Seedlings — Seed Trays" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Craspedia – Drumstick Flower</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Botanical Interests</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-craspedia-drumstick-flower" src="assets/ph-craspedia-drumstick-flower.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Last Week of July</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Marigold – Petite orange" data-src="assets/431e40ca62990eb5.png" data-source="Homegrown Seeds" data-month="July 2026" data-section="Last Week of July" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Marigold – Petite orange</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Homegrown Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-marigold-petite-orange" src="assets/431e40ca62990eb5.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Benary’s Giant Salmon Rose Zinnia" data-src="assets/5cbb21ddb52c93f1.png" data-source="Johnny’s Seeds" data-month="July 2026" data-section="Last Week of July" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Benary’s Giant Salmon Rose Zinnia</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-benarys-giant-salmon-rose-zinnia" src="assets/5cbb21ddb52c93f1.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Benary’s Giant Wine Rose Zinnia" data-src="assets/b50fe9ac5cde6ea9.png" data-source="Johnny’s Seeds" data-month="July 2026" data-section="Last Week of July" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Benary’s Giant Wine Rose Zinnia</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-benarys-giant-wine-rose-zinnia" src="assets/b50fe9ac5cde6ea9.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-aug" data-screen-label="August 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Late summer · Herbs &amp; edibles</div>
+          <h2 class="season mtitle">August 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">10 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Early August</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Kitchen Mini Cucumber" data-src="assets/509249073795a818.png" data-source="Eden Brothers" data-month="August 2026" data-section="Early August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Kitchen Mini Cucumber</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-kitchen-mini-cucumber" src="assets/509249073795a818.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Everglades Tomato" data-src="assets/344a51db416921ff.png" data-source="" data-month="August 2026" data-section="Early August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Everglades Tomato</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-everglades-tomato" src="assets/344a51db416921ff.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Genovese basil" data-src="assets/2ac597af388a4f92.png" data-source="" data-month="August 2026" data-section="Early August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Genovese basil</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-genovese-basil" src="assets/2ac597af388a4f92.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Parsley" data-src="assets/07348f11d7760305.png" data-source="" data-month="August 2026" data-section="Early August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Parsley</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-parsley" src="assets/07348f11d7760305.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Thyme" data-src="assets/35a4996f9ca780eb.png" data-source="" data-month="August 2026" data-section="Early August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Thyme</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-thyme" src="assets/35a4996f9ca780eb.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Late August</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Cilantro" data-src="assets/3c3c0189b5139027.png" data-source="" data-month="August 2026" data-section="Late August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Cilantro</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-cilantro" src="assets/3c3c0189b5139027.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Dill" data-src="assets/bbc634aae0f9f67d.png" data-source="" data-month="August 2026" data-section="Late August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Dill</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-dill" src="assets/bbc634aae0f9f67d.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Oregano" data-src="assets/c5088a7e8289b09e.png" data-source="" data-month="August 2026" data-section="Late August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Oregano</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-oregano" src="assets/c5088a7e8289b09e.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sage" data-src="assets/2f661d97dbc1a942.png" data-source="" data-month="August 2026" data-section="Late August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sage</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sage" src="assets/2f661d97dbc1a942.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lavender" data-src="assets/3e22b3ce00ceddfd.png" data-source="" data-month="August 2026" data-section="Late August" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lavender</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lavender" src="assets/3e22b3ce00ceddfd.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-sep" data-screen-label="September 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Early autumn · Transition</div>
+          <h2 class="season mtitle">September 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">12 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Early September — Start Indoors</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Snapdragon – Twinny Appleblossom" data-src="assets/ph-snapdragon-twinny-appleblossom.webp" data-source="Eden Brothers" data-month="September 2026" data-section="Early September — Start Indoors" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Snapdragon – Twinny Appleblossom</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-snapdragon-twinny-appleblossom" src="assets/ph-snapdragon-twinny-appleblossom.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Everglades Tomato" data-src="assets/344a51db416921ff.png" data-source="" data-month="September 2026" data-section="Early September — Start Indoors" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Everglades Tomato</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-everglades-tomato" src="assets/344a51db416921ff.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Kitchen Mini Cucumber" data-src="assets/509249073795a818.png" data-source="Eden Brothers" data-month="September 2026" data-section="Early September — Start Indoors" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Kitchen Mini Cucumber</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-kitchen-mini-cucumber" src="assets/509249073795a818.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Mid September — Optional Warm-Season Succession</h3>
+          </span>
+          <span style="font-size:11.5px;font-weight:600;color:#6f6b85;background:#fff;border:1px solid color-mix(in srgb, var(--accent) 18%, transparent);padding:4px 12px;border-radius:20px;letter-spacing:.2px">Optional — plant only if space allows</span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Zinnia – Oklahoma Pink" data-src="assets/90639f4e81625b94.png" data-source="Johnny’s Seeds" data-month="September 2026" data-section="Mid September — Optional Warm-Season Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Zinnia – Oklahoma Pink</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-zinnia-oklahoma-pink" src="assets/90639f4e81625b94.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Celosia – Shimmer" data-src="assets/1b4736e647720dcf.png" data-source="Johnny’s Seeds" data-month="September 2026" data-section="Mid September — Optional Warm-Season Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Celosia – Shimmer</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-celosia-shimmer" src="assets/1b4736e647720dcf.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Gomphrena – Fireworks" data-src="assets/38bd636f17f80255.png" data-source="Burpee" data-month="September 2026" data-section="Mid September — Optional Warm-Season Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Gomphrena – Fireworks</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-gomphrena-fireworks" src="assets/38bd636f17f80255.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Late September — Cool-Season Edibles</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="September 2026" data-section="Late September — Cool-Season Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine – Parris Island Cos" data-src="assets/romaine.png" data-source="" data-month="September 2026" data-section="Late September — Cool-Season Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933"><span style="letter-spacing: 0.1px;">Romaine</span><br style="letter-spacing: 0.1px;"><span style="letter-spacing: 0.1px;">Sunland Pelleted Lettuce Seed</span></span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">JOHNNY'S SEEDS</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine-parris-island-cos" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="September 2026" data-section="Late September — Cool-Season Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Late September — Arriving Plants and Corms</h3>
+          </span>
+        </div>
+        <div style="font-size:13px;color:#94909f;font-style:italic;margin:10px 0 2px;max-width:680px;line-height:1.5">Corms arrive in September; store until planting conditions are cooler.</div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Blueberry – Sunshine Blue" data-src="assets/ph-blueberry-sunshine-blue.webp" data-source="Burpee" data-month="September 2026" data-section="Late September — Arriving Plants and Corms" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Blueberry – Sunshine Blue</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-blueberry-sunshine-blue" src="assets/ph-blueberry-sunshine-blue.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Blueberry – Sunshine Blue" data-src="assets/ph-blueberry-sunshine-blue.webp" data-source="Burpee" data-month="September 2026" data-section="Late September — Arriving Plants and Corms" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Blueberry – Sunshine Blue</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-blueberry-sunshine-blue" src="assets/ph-blueberry-sunshine-blue.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Marshmallow" data-src="assets/ph-ranunculus-marshmallow.webp" data-source="Eden Brothers" data-month="September 2026" data-section="Late September — Arriving Plants and Corms" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Marshmallow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-marshmallow" src="assets/ph-ranunculus-marshmallow.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-oct" data-screen-label="October 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Autumn · Cool-season</div>
+          <h2 class="season mtitle">October 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">15 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Early October — Start Indoors</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Sweet Alyssum – Snow Cloth" data-src="assets/ph-sweet-alyssum-snow-cloth.webp" data-source="Eden Brothers" data-month="October 2026" data-section="Early October — Start Indoors" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sweet Alyssum – Snow Cloth</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sweet-alyssum-snow-cloth" src="assets/ph-sweet-alyssum-snow-cloth.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">October — Cool-Season Edible Succession</h3>
+          </span>
+          <span style="font-size:11.5px;font-weight:600;color:#6f6b85;background:#fff;border:1px solid color-mix(in srgb, var(--accent) 18%, transparent);padding:4px 12px;border-radius:20px;letter-spacing:.2px">Sow only as needed</span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="October 2026" data-section="October — Cool-Season Edible Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine – Parris Island Cos" data-src="assets/romaine.png" data-source="" data-month="October 2026" data-section="October — Cool-Season Edible Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Romaine – Parris Island Cos</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine-parris-island-cos" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="October 2026" data-section="October — Cool-Season Edible Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Mid to Late October — Harden Off and Move Outside</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Snapdragon – Twinny Appleblossom" data-src="assets/ph-snapdragon-twinny-appleblossom.webp" data-source="Eden Brothers" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Snapdragon – Twinny Appleblossom</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-snapdragon-twinny-appleblossom" src="assets/ph-snapdragon-twinny-appleblossom.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sweet Alyssum – Snow Cloth" data-src="assets/ph-sweet-alyssum-snow-cloth.webp" data-source="Eden Brothers" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sweet Alyssum – Snow Cloth</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sweet-alyssum-snow-cloth" src="assets/ph-sweet-alyssum-snow-cloth.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Parsley" data-src="assets/07348f11d7760305.png" data-source="" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Parsley</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-parsley" src="assets/07348f11d7760305.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Cilantro" data-src="assets/3c3c0189b5139027.png" data-source="" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Cilantro</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-cilantro" src="assets/3c3c0189b5139027.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Dill" data-src="assets/bbc634aae0f9f67d.png" data-source="" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Dill</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-dill" src="assets/bbc634aae0f9f67d.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine" data-src="assets/romaine.png" data-source="" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Romaine</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula" data-src="assets/ph-arugula-garden-tangy.webp" data-source="" data-month="October 2026" data-section="Mid to Late October — Harden Off and Move Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Late October — Prepare for November Planting</h3>
+          </span>
+          <span style="font-size:11.5px;font-weight:600;color:#6f6b85;background:#fff;border:1px solid color-mix(in srgb, var(--accent) 18%, transparent);padding:4px 12px;border-radius:20px;letter-spacing:.2px">Prepare containers and chill or store planting material</span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Larkspur – QIS Carmine" data-src="assets/larkspur-qis-carmine.png" data-source="Johnny’s Seeds" data-month="October 2026" data-section="Late October — Prepare for November Planting" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Larkspur – QIS Carmine</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-larkspur-qis-carmine" src="assets/larkspur-qis-carmine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Romance Salerno" data-src="assets/ranunculus-romance-salerno.png" data-source="" data-month="October 2026" data-section="Late October — Prepare for November Planting" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Romance Salerno</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-romance-salerno" src="assets/ranunculus-romance-salerno.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Marshmallow" data-src="assets/ph-ranunculus-marshmallow.webp" data-source="Eden Brothers" data-month="October 2026" data-section="Late October — Prepare for November Planting" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Marshmallow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-marshmallow" src="assets/ph-ranunculus-marshmallow.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-nov" data-screen-label="November 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Late autumn · Planting out</div>
+          <h2 class="season mtitle">November 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">14 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Early November — Direct Sow</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Larkspur – QIS Carmine" data-src="assets/larkspur-qis-carmine.png" data-source="Johnny’s Seeds" data-month="November 2026" data-section="Early November — Direct Sow" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Larkspur – QIS Carmine</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-larkspur-qis-carmine" src="assets/larkspur-qis-carmine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Early November — Pre-Sprout Corms</h3>
+          </span>
+        </div>
+        <div style="font-size:13.5px;color:#7a7690;margin:10px 0 2px;letter-spacing:.3px;font-weight:500">Soak → pre-sprout → plant</div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Ranunculus – Marshmallow" data-src="assets/ph-ranunculus-marshmallow.webp" data-source="Eden Brothers" data-month="November 2026" data-section="Early November — Pre-Sprout Corms" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Marshmallow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-marshmallow" src="assets/ph-ranunculus-marshmallow.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Romance Salerno" data-src="assets/ranunculus-romance-salerno.png" data-source="" data-month="November 2026" data-section="Early November — Pre-Sprout Corms" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Romance Salerno</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-romance-salerno" src="assets/ranunculus-romance-salerno.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Mid November — Plant Outside</h3>
+          </span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Ranunculus – Marshmallow" data-src="assets/ph-ranunculus-marshmallow.webp" data-source="Eden Brothers" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Marshmallow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-marshmallow" src="assets/ph-ranunculus-marshmallow.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Romance Salerno" data-src="assets/ranunculus-romance-salerno.png" data-source="" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Romance Salerno</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-romance-salerno" src="assets/ranunculus-romance-salerno.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Snapdragon – Twinny Appleblossom" data-src="assets/ph-snapdragon-twinny-appleblossom.webp" data-source="Eden Brothers" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Snapdragon – Twinny Appleblossom</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-snapdragon-twinny-appleblossom" src="assets/ph-snapdragon-twinny-appleblossom.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sweet Alyssum – Snow Cloth" data-src="assets/ph-sweet-alyssum-snow-cloth.webp" data-source="Eden Brothers" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sweet Alyssum – Snow Cloth</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sweet-alyssum-snow-cloth" src="assets/ph-sweet-alyssum-snow-cloth.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Parsley" data-src="assets/07348f11d7760305.png" data-source="" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Parsley</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-parsley" src="assets/07348f11d7760305.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Cilantro" data-src="assets/3c3c0189b5139027.png" data-source="" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Cilantro</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-cilantro" src="assets/3c3c0189b5139027.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Dill" data-src="assets/bbc634aae0f9f67d.png" data-source="" data-month="November 2026" data-section="Mid November — Plant Outside" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Dill</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-dill" src="assets/bbc634aae0f9f67d.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Late November — Direct Sow Edibles</h3>
+          </span>
+          <span style="font-size:11.5px;font-weight:600;color:#6f6b85;background:#fff;border:1px solid color-mix(in srgb, var(--accent) 18%, transparent);padding:4px 12px;border-radius:20px;letter-spacing:.2px">Plant based on available space and current harvests</span>
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Rainbow Carrots" data-src="assets/rainbow-carrots.png" data-source="" data-month="November 2026" data-section="Late November — Direct Sow Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Rainbow Carrots</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-rainbow-carrots" src="assets/rainbow-carrots.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="November 2026" data-section="Late November — Direct Sow Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine – Parris Island Cos" data-src="assets/romaine.png" data-source="" data-month="November 2026" data-section="Late November — Direct Sow Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Romaine – Parris Island Cos</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine-parris-island-cos" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="November 2026" data-section="Late November — Direct Sow Edibles" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-dec" data-screen-label="December 2026" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Winter · Cool-season garden</div>
+          <h2 class="season mtitle">December 2026</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">17 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Cool-Season Garden</h3>
+          </span>
+        </div>
+        <div style="font-size:13px;color:#94909f;font-style:italic;margin:10px 0 2px;max-width:680px;line-height:1.5">Represents what should currently be growing — not necessarily what to newly plant.</div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Snapdragon – Twinny Appleblossom" data-src="assets/ph-snapdragon-twinny-appleblossom.webp" data-source="Eden Brothers" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Snapdragon – Twinny Appleblossom</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; border-width: 1px; border-style: solid; border-color: #B1B7B4; background-color: #FFFFFF">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-snapdragon-twinny-appleblossom" src="assets/ph-snapdragon-twinny-appleblossom.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sweet Alyssum – Snow Cloth" data-src="assets/ph-sweet-alyssum-snow-cloth.webp" data-source="Eden Brothers" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sweet Alyssum – Snow Cloth</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; border-width: 1px; border-style: solid; border-color: #B1B7B4; background-color: #FFFFFF">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sweet-alyssum-snow-cloth" src="assets/ph-sweet-alyssum-snow-cloth.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Larkspur – QIS Carmine" data-src="assets/larkspur-qis-carmine.png" data-source="Johnny’s Seeds" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Larkspur – QIS Carmine</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; border-width: 1px; border-style: solid; border-color: #B1B7B4; background-color: #FFFFFF">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-larkspur-qis-carmine" src="assets/larkspur-qis-carmine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Marshmallow" data-src="assets/ph-ranunculus-marshmallow.webp" data-source="Eden Brothers" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Marshmallow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; border-width: 1px; border-style: solid; border-color: #B1B7B4; background-color: #FFFFFF">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-marshmallow" src="assets/ph-ranunculus-marshmallow.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Ranunculus – Romance Salerno" data-src="assets/ranunculus-romance-salerno.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Ranunculus – Romance Salerno</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-ranunculus-romance-salerno" src="assets/ranunculus-romance-salerno.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce – Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; background-color: #FFFFFF">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine – Parris Island Cos" data-src="assets/romaine.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Romaine – Parris Island Cos</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine-parris-island-cos" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; background-color: #FFFFFF">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Rainbow Carrots" data-src="assets/rainbow-carrots.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Rainbow Carrots</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-rainbow-carrots" src="assets/rainbow-carrots.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Parsley" data-src="assets/07348f11d7760305.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Parsley</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-parsley" src="assets/07348f11d7760305.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Cilantro" data-src="assets/3c3c0189b5139027.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Cilantro</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-cilantro" src="assets/3c3c0189b5139027.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Dill" data-src="assets/bbc634aae0f9f67d.png" data-source="" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Dill</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-dill" src="assets/bbc634aae0f9f67d.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Blueberry – Sunshine Blue" data-src="assets/ph-blueberry-sunshine-blue.webp" data-source="Burpee" data-month="December 2026" data-section="Cool-Season Garden" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Blueberry – Sunshine Blue</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-blueberry-sunshine-blue" src="assets/ph-blueberry-sunshine-blue.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Optional December Succession</h3>
+          </span>
+          
+        </div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Lettuce – Little Gem" data-src="assets/6ae31be5762607f8.png" data-source="Burpee" data-month="December 2026" data-section="Optional December Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lettuce <br>Little Gem</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; border-width: 1px; border-style: solid; border-color: #B1B7B4; background-color: #FFFFFF">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lettuce-little-gem" src="assets/6ae31be5762607f8.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Romaine" data-src="assets/romaine.png" data-source="" data-month="December 2026" data-section="Optional December Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933"><span style="letter-spacing: 0.1px;">Romaine</span><br style="letter-spacing: 0.1px;"><span style="letter-spacing: 0.1px;">Sunland Pelleted Lettuce Seed</span></span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine" src="assets/romaine.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Garden Tangy" data-src="assets/ph-arugula-garden-tangy.webp" data-source="Burpee" data-month="December 2026" data-section="Optional December Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula<br>Garden Tangy</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; background-color: #FFFFFF; border-width: 1px; border-style: solid; border-color: #B1B7B4">Burpee</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-garden-tangy" src="assets/ph-arugula-garden-tangy.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sweet Alyssum – Snow Cloth" data-src="assets/ph-sweet-alyssum-snow-cloth.webp" data-source="Eden Brothers" data-month="December 2026" data-section="Optional December Succession" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Alyssum<br><span style="letter-spacing: 0.1px;">Sweet </span>Snow Cloth</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: #55645E; border-radius: 999px; padding: 4px 10px; white-space: nowrap; background-color: #FFFFFF; border-width: 1px; border-style: solid; border-color: #B1B7B4">Eden Brothers</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sweet-alyssum-snow-cloth" src="assets/ph-sweet-alyssum-snow-cloth.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="m-misc" data-screen-label="Miscellaneous" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Seed inventory · Johnny’s Seeds</div>
+          <h2 class="season mtitle">Miscellaneous</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">8 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin-bottom:2px">
+          <span style="display:inline-flex;align-items:center;gap:11px">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg)"></span>
+            <h3 style="font-size:19px;font-weight:600;color:var(--accent);margin:0;letter-spacing:.2px">Miscellaneous</h3>
+          </span>
+        </div>
+        <div style="font-size:13px;color:#94909f;font-style:italic;margin:10px 0 2px;max-width:680px;line-height:1.5">Seed inventory — first three from Johnny’s Seeds</div>
+        <div class="grid" style="--cols:5">
+            <div class="card" data-name="Romaine – Sunland Pelleted Lettuce Seed" data-src="assets/misc-romaine-sunland.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Romaine <br>Sunland Pelleted Lettuce Seed</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-romaine-sunland-pelleted-lettuce-seed" src="assets/misc-romaine-sunland.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Arugula – Uber Salad Lettuce Seed" data-src="assets/misc-arugula-uber.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Arugula – Uber Salad Lettuce Seed</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-arugula-uber-salad-lettuce-seed" src="assets/misc-arugula-uber.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Carrots – Mokum (F1) Carrot Seed" data-src="assets/misc-carrot-mokum.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Carrots – Mokum (F1) Carrot Seed</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-carrots-mokum-f1-carrot-seed" src="assets/misc-carrot-mokum.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Lisianthus – Croma™ III White" data-src="assets/misc-lisianthus-croma-white.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Lisianthus – Croma™ III White</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-lisianthus-croma-iii-white" src="assets/misc-lisianthus-croma-white.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Marigold – Giant Yellow" data-src="assets/misc-marigold-giant-yellow.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Marigold – Giant Yellow</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-marigold-giant-yellow" src="assets/misc-marigold-giant-yellow.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Snapdragon – Potomac Plumblossom" data-src="assets/misc-snapdragon-potomac-plumblossom.jpg" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Snapdragon – Potomac Plumblossom</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-snapdragon-potomac-plumblossom" src="assets/misc-snapdragon-potomac-plumblossom.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Oklahoma Pink Zinnia" data-src="assets/90639f4e81625b94.png" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Oklahoma Pink Zinnia</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-oklahoma-pink-zinnia" src="assets/90639f4e81625b94.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Shimmer Organic Celosia" data-src="assets/1b4736e647720dcf.png" data-source="Johnny’s Seeds" data-month="Miscellaneous" data-section="Miscellaneous" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:40px;margin-bottom:12px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Shimmer Organic Celosia</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;min-height:21px;margin:-6px 0 12px">
+              <span style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#55645E;background:#FFFFFF;border:1px solid #B1B7B4;border-radius:999px;padding:4px 10px;white-space:nowrap">Johnny’s Seeds</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-shimmer-organic-celosia" src="assets/1b4736e647720dcf.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseViewer }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onSwipeEnd }}" style="position:fixed;inset:0;z-index:90;background:#0c0b11;overflow:hidden">
+      <div onClick="{{ stop }}" style="position:absolute;inset:0">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ viewer.slotId }}" src="{{ viewer.src }}" shape="rect" fit="cover" placeholder="Drop a photo for this plant" hint-size="100%,100%"></x-import>
+      </div>
+      <div style="position:absolute;top:0;left:0;right:0;height:130px;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,0));pointer-events:none"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:210px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.78));pointer-events:none"></div>
+      <div class="season" style="position:absolute;top:22px;left:22px;right:74px;color:#eceaf2;font-size:12px;letter-spacing:.14em;text-transform:uppercase;pointer-events:none">{{ viewer.monthLabel }} · {{ viewer.sectionLabel }}</div>
+      <button onClick="{{ onCloseViewer }}" style="position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">×</button>
+      <div style="position:absolute;bottom:28px;left:0;right:0;text-align:center;color:#fff;pointer-events:none;padding:0 24px">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+          <div class="season" style="font-size:22px;font-weight:600;text-wrap:pretty">{{ viewer.name }}</div>
+          <sc-if value="{{ viewer.hasSource }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#efedf6;background:rgba(255,255,255,.17);border-radius:999px;padding:5px 13px;white-space:nowrap">{{ viewer.source }}</span>
+          </sc-if>
+        </div>
+        <div style="font-size:12.5px;color:#b9b5c8;margin-top:8px;letter-spacing:.06em">{{ viewer.pos }}</div>
+      </div>
+      <button onClick="{{ onPrev }}" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:20px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">‹</button>
+      <button onClick="{{ onNext }}" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:20px;cursor:pointer;backdrop-filter:blur(6px);z-index:3">›</button>
+    </div>
+  </sc-if>
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#f4f3ef">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f4f3ef"></rect>
+    <circle cx="600" cy="330" r="150" fill="var(--accent)"></circle>
+    <circle cx="600" cy="330" r="60" fill="#f4f3ef"></circle>
+    <text x="600" y="600" font-family="Signika,sans-serif" font-size="80" font-weight="700" fill="#22212a" text-anchor="middle">Garden Catalog</text>
+  </svg>
+</template></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:840},&quot;pageBg&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#eef5e6&quot;,&quot;options&quot;:[&quot;#eef5e6&quot;,&quot;#e6f0dc&quot;,&quot;#f1f7ec&quot;,&quot;#e9f2ea&quot;,&quot;#f4f3ef&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Style&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5a4f8a&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Style&quot;},&quot;columns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { viewerIndex:null };
+
+  _cards(){ return Array.prototype.slice.call(document.querySelectorAll(".card")); }
+  _txt(el){ return el ? String(el.textContent||"").trim() : ""; }
+  _name(el){ return this._txt(el.querySelector("span")) || el.getAttribute("data-name") || ""; }
+  _src(el){ const d=el.children[1]; return this._txt(d && d.querySelector("span")) || ""; }
+  _month(el){ const s=el.closest("section[id^='m-']"); return this._txt(s && s.querySelector(".mtitle")) || el.getAttribute("data-month") || ""; }
+  _sect(el){ const s=el.closest(".sect"); return this._txt(s && s.querySelector("h3")) || el.getAttribute("data-section") || ""; }
+  _info(el){ return { name:this._name(el), src:el.getAttribute("data-src")||"", source:this._src(el), monthLabel:this._month(el), sectionLabel:this._sect(el), slotId:"p-"+(el.getAttribute("data-name")||"").toLowerCase().replace(/[\u2019']/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") }; }
+
+  componentDidMount(){
+    this._onClick=(e)=>{
+      const hit=e.target.closest && e.target.closest("[data-view]");
+      if(hit){ const card=hit.closest(".card"); const i=this._cards().indexOf(card); if(i>=0) this.setState({viewerIndex:i}); return; }
+      const jump=e.target.closest && e.target.closest("[data-jump]");
+      if(jump){ const el=document.getElementById(jump.getAttribute("data-jump")); if(el){ window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-84,behavior:"smooth"}); } }
+    };
+    document.addEventListener("click",this._onClick);
+    this._onKey=(e)=>{
+      if(this.state.viewerIndex==null) return;
+      if(e.key==="Escape") this.setState({viewerIndex:null});
+      else if(e.key==="ArrowRight") this._step(1);
+      else if(e.key==="ArrowLeft") this._step(-1);
+    };
+    window.addEventListener("keydown",this._onKey);
+    this._ts=(e)=>{ if(this.state.viewerIndex==null) return; const t=e.touches&&e.touches[0]; this._tx=t?t.clientX:null; this._ty=t?t.clientY:null; };
+    this._tm=(e)=>{ if(this.state.viewerIndex==null||this._tx==null) return; const t=e.touches&&e.touches[0]; if(!t) return; if(Math.abs(t.clientX-this._tx)>Math.abs(t.clientY-this._ty)&&e.cancelable) e.preventDefault(); };
+    this._te=(e)=>{
+      if(this.state.viewerIndex==null||this._tx==null) return;
+      const t=e.changedTouches&&e.changedTouches[0]; if(!t) return;
+      const dx=t.clientX-this._tx, dy=t.clientY-this._ty; this._tx=null;
+      if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)) this._step(dx<0?1:-1);
+    };
+    document.addEventListener("touchstart",this._ts,{passive:true});
+    document.addEventListener("touchmove",this._tm,{passive:false});
+    document.addEventListener("touchend",this._te,{passive:true});
+    this._onScroll=()=>{
+      if(this._raf) return;
+      this._raf=requestAnimationFrame(()=>{
+        this._raf=0;
+        const secs=Array.prototype.slice.call(document.querySelectorAll("section[id^='m-']"));
+        let act=secs.length?secs[0].id:null;
+        secs.forEach(s=>{ if(s.getBoundingClientRect().top<=150) act=s.id; });
+        document.querySelectorAll("[data-jump]").forEach(b=>{
+          const on=b.getAttribute("data-jump")===act;
+          b.style.fontWeight=on?"600":"500";
+          b.style.color=on?this._accent():"#514e5e";
+          b.style.background=on?"color-mix(in srgb, "+this._accent()+" 11%, transparent)":"transparent";
+        });
+      });
+    };
+    window.addEventListener("scroll",this._onScroll,{passive:true});
+    this._onScroll();
+    this._applyProps();
+  }
+  componentDidUpdate(){ this._applyProps(); }
+  componentWillUnmount(){ document.removeEventListener("touchstart",this._ts); document.removeEventListener("touchmove",this._tm); document.removeEventListener("touchend",this._te); document.removeEventListener("click",this._onClick); window.removeEventListener("keydown",this._onKey); window.removeEventListener("scroll",this._onScroll); }
+
+  _accent(){ return this.props.accent ?? "#5a4f8a"; }
+  _applyProps(){
+    const root=document.querySelector("[data-root]");
+    if(root){ root.style.background=this.props.pageBg ?? "#eef5e6"; root.style.setProperty("--accent", this._accent()); }
+    const cols=this.props.columns ?? 5;
+    document.querySelectorAll(".grid").forEach(g=>g.style.setProperty("--cols",cols));
+  }
+
+  _filter(q){
+    const t=String(q||"").trim().toLowerCase();
+    this._cards().forEach(c=>{
+      const hit=!t || this._name(c).toLowerCase().indexOf(t)>-1;
+      c.style.opacity=hit?"1":"0.2";
+    });
+  }
+  _step(d){
+    const total=this._cards().length; if(!total) return;
+    this.setState(st=>({viewerIndex:(st.viewerIndex+d+total)%total}));
+  }
+
+  renderVals(){
+    const cards=typeof document!=="undefined"?this._cards():[];
+    const vi=this.state.viewerIndex;
+    const vopen=vi!=null && cards.length>0;
+    const cur=vopen?this._info(cards[Math.min(vi,cards.length-1)]):null;
+    return {
+      viewerOpen:vopen,
+      viewer: cur ? Object.assign({},cur,{hasSource:!!cur.source,pos:(Math.min(vi,cards.length-1)+1)+" / "+cards.length})
+                  : {slotId:"",src:"",name:"",source:"",hasSource:false,monthLabel:"",sectionLabel:"",pos:""},
+      onSearch:(e)=>this._filter(e.target.value),
+      onFocusMode:()=>this.setState({viewerIndex:0}),
+      onPrev:(e)=>{ if(e)e.stopPropagation(); this._step(-1); },
+      onNext:(e)=>{ if(e)e.stopPropagation(); this._step(1); },
+      onCloseViewer:()=>this.setState({viewerIndex:null}),
+      stop:(e)=>{ e.stopPropagation(); },
+      onTouchStart:(e)=>{ this._tx=(e.touches&&e.touches[0])?e.touches[0].clientX:null; },
+      onSwipeEnd:(e)=>{ e.stopPropagation(); if(this._tx==null) return; const t=e.changedTouches&&e.changedTouches[0]; if(!t) return; const dx=t.clientX-this._tx; this._tx=null; if(Math.abs(dx)>40) this._step(dx<0?1:-1); }
+    };
+  }
+}
+</script>
+</body>
+</html>
