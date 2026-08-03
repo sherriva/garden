@@ -82,6 +82,7 @@
         <button class="chip" data-jump="m-herbs" style="font-family: inherit; font-size: 13.5px; font-weight: 500; color: #F0F0F0; background: transparent; border: none; border-radius: 22px; padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background .15s,color .15s">Herbs</button>
         <button class="chip" data-jump="m-fruit" style="font-family: inherit; font-size: 13.5px; font-weight: 500; color: #F0F0F0; background: transparent; border: none; border-radius: 22px; padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background .15s,color .15s">Fruit</button>
         <button class="chip" data-jump="m-vegetables" style="font-family: inherit; font-size: 13.5px; font-weight: 500; color: #F0F0F0; background: transparent; border: none; border-radius: 22px; padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background .15s,color .15s">Vegetables</button>
+        <button class="chip" data-jump="m-want" style="font-family:inherit;font-size:13.5px;font-weight:500;color:#514e5e;background:transparent;border:none;border-radius:22px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,color .15s">Want</button>
     </nav>
   </div>
 
@@ -567,6 +568,76 @@
         </div>
       </div>
     </section>
+
+    <section id="m-want" data-screen-label="Want" class="month-top">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="season" style="font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9a97b0;margin-bottom:10px">Wishlist · Not yet sourced</div>
+          <h2 class="season mtitle">Want</h2>
+        </div>
+        <span style="font-size:12.5px;font-weight:600;color:#7b7790;background:color-mix(in srgb, var(--accent) 9%, transparent);padding:6px 14px;border-radius:20px">6 plants</span>
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,color-mix(in srgb, var(--accent) 28%, transparent),transparent);margin-top:20px"></div>
+      <div class="sect">
+        <div class="grid" style="--cols:4">
+            <div class="card" data-name="Apricot Trailing Begonia" data-src="assets/want-apricot-trailing-begonia.webp" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Apricot Trailing Begonia</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-apricot-trailing-begonia" src="assets/want-apricot-trailing-begonia.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Sharry Baby Orchid" data-src="assets/want-sharry-baby-orchid.webp" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Sharry Baby Orchid</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-sharry-baby-orchid" src="assets/want-sharry-baby-orchid.webp" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Silver Falls Dichondra" data-src="assets/want-silver-falls-dichondra.jpg" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Silver Falls Dichondra</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-silver-falls-dichondra" src="assets/want-silver-falls-dichondra.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Stock" data-src="assets/want-stock.jpg" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Stock</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-stock" src="assets/want-stock.jpg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Jasmine Star" data-src="assets/want-jasmine-star.jpeg" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Jasmine Star</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-jasmine-star" src="assets/want-jasmine-star.jpeg" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+            <div class="card" data-name="Yukon Gold Potatoes" data-src="assets/want-yukon-gold-potatoes.png" data-source="" data-month="Want" data-section="" style="display:flex;flex-direction:column;transition:opacity .18s">
+              <div style="display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:6px">
+                <span style="font-size:14.5px;font-weight:500;line-height:1.3;letter-spacing:.1px;text-wrap:pretty;color:#2a2933">Yukon Gold Potatoes</span>
+              </div>
+              <div style="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px -12px rgba(40,38,60,.32);transition:transform .22s ease,box-shadow .22s ease" style-hover="position:relative;aspect-ratio:1/1;width:100%;background:#eae8e3;border-radius:16px;overflow:hidden;box-shadow:0 18px 38px -14px rgba(40,38,60,.45);transform:translateY(-6px);transition:transform .22s ease,box-shadow .22s ease">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="p-yukon-gold-potatoes" src="assets/want-yukon-gold-potatoes.png" shape="rect" fit="cover" placeholder="Add image" hint-size="100%,100%"></x-import>
+                <div data-view="1" title="Open gallery" style="position:absolute;inset:0;z-index:4;cursor:pointer"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
